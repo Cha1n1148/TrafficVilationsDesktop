@@ -1,0 +1,60 @@
+﻿<Window x:Class="TrafficVilationsDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrafficVilationsDesktop"
+        mc:Ignorable="d"
+        Title="Учет нарушений ПДД" Height="720" Width="1280"
+        FontSize="14">
+    <Grid>
+        <TabControl TabStripPlacement="Left"
+                    Margin="10">
+            <TabItem Header="Главное меню"
+                     FontSize="18"
+                     Height="50">
+                <TabControl TabStripPlacement="Top"
+                            Grid.Row="0">
+                    <TabItem Header="Подробная сводка о нарушениях">
+                        <Frame x:Name="Tab_Detailed"
+                               NavigationUIVisibility="Hidden"/>
+                    </TabItem>
+                    <TabItem Header="Статистика нарушений по типу">
+                        <Frame x:Name="Tab_TypeStat"
+                               NavigationUIVisibility="Hidden"/>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Водители"
+                     FontSize="18"
+                     Height="50">
+                <Frame x:Name="Tab_DriversMain"
+                       NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Водительские права"
+                     FontSize="18"
+                     Height="50">
+                <Frame x:Name="Tab_DriverLecensesMain"
+                       NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Транспортные средства"
+                     FontSize="18"
+                     Height="50">
+                <Frame x:Name="Tab_VehiclesMain"
+                       NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Нарушения"
+                     FontSize="18"
+                     Height="50">
+                <Frame x:Name="Tab_ViolationsMain"
+                       NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            <TabItem Header="Типы нарушения"
+                     FontSize="18"
+                     Height="50">
+                <Frame x:Name="Tab_ViolationTypesMain"
+                       NavigationUIVisibility="Hidden"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

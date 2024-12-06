@@ -1,0 +1,1433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище TrafficViolationsModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Driver_License_Category">
+          <Key>
+            <PropertyRef Name="Driver_License_Caetgory_ID" />
+          </Key>
+          <Property Name="Driver_License_Caetgory_ID" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Driver_Licenses">
+          <Key>
+            <PropertyRef Name="License_Number" />
+          </Key>
+          <Property Name="License_Number" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Driver_ID" Type="int" Nullable="false" />
+          <Property Name="Category_ID" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Issue_Date" Type="date" Nullable="false" />
+          <Property Name="Expiry_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Drivers">
+          <Key>
+            <PropertyRef Name="Driver_ID" />
+          </Key>
+          <Property Name="Driver_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Middle_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Birthdate" Type="date" Nullable="false" />
+          <Property Name="Phone" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment_Status">
+          <Key>
+            <PropertyRef Name="Payment_Status_ID" />
+          </Key>
+          <Property Name="Payment_Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regions">
+          <Key>
+            <PropertyRef Name="Region_Code" />
+          </Key>
+          <Property Name="Region_Code" Type="int" Nullable="false" />
+          <Property Name="Region_Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Region_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Driver_ID" Type="int" Nullable="false" />
+          <Property Name="Series" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Registration_Number" Type="int" Nullable="false" />
+          <Property Name="Region_Code" Type="int" Nullable="false" />
+          <Property Name="Brand" Type="varchar" MaxLength="100" />
+          <Property Name="Model" Type="varchar" MaxLength="100" />
+          <Property Name="Year" Type="int" />
+        </EntityType>
+        <EntityType Name="Violation_Types">
+          <Key>
+            <PropertyRef Name="Violation_Type_ID" />
+          </Key>
+          <Property Name="Violation_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Violation_Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Violation_Description" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Violations">
+          <Key>
+            <PropertyRef Name="Violation_ID" />
+          </Key>
+          <Property Name="Violation_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Driver_ID" Type="int" Nullable="false" />
+          <Property Name="Vehicle_ID" Type="int" Nullable="false" />
+          <Property Name="Violation_Type_ID" Type="int" Nullable="false" />
+          <Property Name="Date_Time" Type="datetime" Nullable="false" />
+          <Property Name="Place" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Fine_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "TrafficViolations.dbo.DetailedViolationsInfo" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="DetailedViolationsInfo">
+          <Key>
+            <PropertyRef Name="Violation_ID" />
+            <PropertyRef Name="Date_time" />
+            <PropertyRef Name="Place" />
+            <PropertyRef Name="Fine_Amount" />
+            <PropertyRef Name="Payment_Status" />
+            <PropertyRef Name="DriverFullName" />
+            <PropertyRef Name="VehicleInfo" />
+            <PropertyRef Name="ViolationTypeName" />
+          </Key>
+          <Property Name="Violation_ID" Type="int" Nullable="false" />
+          <Property Name="Date_time" Type="datetime" Nullable="false" />
+          <Property Name="Place" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Fine_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DriverFullName" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="License" Type="nchar" MaxLength="10" />
+          <Property Name="VehicleInfo" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ViolationTypeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ViolationTypeDescription" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "TrafficViolations.dbo.DriverViolationStatistics" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="DriverViolationStatistics">
+          <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+          <Property Name="Total_Violations" Type="int" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "TrafficViolations.dbo.DriverViolationTypeStatistics" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="DriverViolationTypeStatistics">
+          <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+          <Property Name="Violation_Name" Type="varchar" MaxLength="100" />
+          <Property Name="Total_Violations" Type="int" />
+        </EntityType>-->
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "TrafficViolations.dbo.ViolationStatistics" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="ViolationStatistics">
+          <Key>
+            <PropertyRef Name="Violation_Name" />
+          </Key>
+          <Property Name="Violation_Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Total_Violations" Type="int" />
+        </EntityType>
+        <Association Name="FK__Driver_Li__Owner__45F365D3">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="Driver_Licenses" Type="Self.Driver_Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Driver_Licenses">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Owner___3B75D760">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Region__3C69FB99">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Region_Code" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Region_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Violation__Drive__412EB0B6">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Violation__Viola__4316F928">
+          <End Role="Violation_Types" Type="Self.Violation_Types" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Violation_Types">
+              <PropertyRef Name="Violation_Type_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Violation_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_Licenses_Driver_License_Category">
+          <End Role="Driver_License_Category" Type="Self.Driver_License_Category" Multiplicity="1" />
+          <End Role="Driver_Licenses" Type="Self.Driver_Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver_License_Category">
+              <PropertyRef Name="Driver_License_Caetgory_ID" />
+            </Principal>
+            <Dependent Role="Driver_Licenses">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_Vehicle">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverLicense_Driver">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Driver_Licenses" Type="Self.Driver_Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Driver_Licenses">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Violations_Driver">
+          <End Role="Drivers" Type="Self.Drivers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Violations" Type="Self.Violations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Violations_Payment_Status">
+          <End Role="Payment_Status" Type="Self.Payment_Status" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Status">
+              <PropertyRef Name="Payment_Status_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Payment_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Violations_Vehicles">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="Vehicle_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Vehicle_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="first_name" Type="varchar" Mode="In" />
+          <Parameter Name="last_name" Type="varchar" Mode="In" />
+          <Parameter Name="middle_name" Type="varchar" Mode="In" />
+          <Parameter Name="birthdate" Type="date" Mode="In" />
+          <Parameter Name="phone" Type="nchar" Mode="In" />
+          <Parameter Name="address" Type="varchar(max)" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="AddDriverLicense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="licenseNumber" Type="nchar" Mode="In" />
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="category_id" Type="nchar" Mode="In" />
+          <Parameter Name="issue_date" Type="date" Mode="In" />
+          <Parameter Name="expiry_date" Type="date" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="AddVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="series" Type="varchar" Mode="In" />
+          <Parameter Name="registraition_number" Type="int" Mode="In" />
+          <Parameter Name="region_code" Type="int" Mode="In" />
+          <Parameter Name="brand" Type="varchar" Mode="In" />
+          <Parameter Name="model" Type="varchar" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="AddViolation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="vehicle_id" Type="int" Mode="In" />
+          <Parameter Name="violation_type_id" Type="int" Mode="In" />
+          <Parameter Name="date_time" Type="datetime" Mode="In" />
+          <Parameter Name="place" Type="varchar(max)" Mode="In" />
+          <Parameter Name="fine_amount" Type="decimal" Mode="In" />
+          <Parameter Name="payment_status_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="AddViolationType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_type_id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteDriverLicense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="license_Number" Type="nchar" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="vehicle_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteViolation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="DeleteViolationType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_type_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="GetDefaultDriverLicense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nchar">
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetLicensesByDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="deiver_id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Driver_ID" Type="int" Nullable="false" />
+                <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+                <Property Name="License_Number" Type="nchar" MaxLength="10" Nullable="false" />
+                <Property Name="Issue_Date" Type="date" Nullable="false" />
+                <Property Name="Expiry_Date" Type="date" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetVehiclesByDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="deiver_id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Driver_ID" Type="int" Nullable="false" />
+                <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+                <Property Name="Vehicle_ID" Type="int" Nullable="false" />
+                <Property Name="Vehicle_Info" Type="varchar" MaxLength="18" Nullable="false" />
+                <Property Name="Brand" Type="varchar" MaxLength="100" />
+                <Property Name="Model" Type="varchar" MaxLength="100" />
+                <Property Name="Year" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetViolationsByDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="deiver_id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Violation_ID" Type="int" Nullable="false" />
+                <Property Name="Violation_Name" Type="varchar" MaxLength="100" Nullable="false" />
+                <Property Name="Driver_ID" Type="int" Nullable="false" />
+                <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+                <Property Name="Vehicle_ID" Type="int" Nullable="false" />
+                <Property Name="Vehicle_Info" Type="varchar" MaxLength="18" Nullable="false" />
+                <Property Name="Date_Time" Type="datetime" Nullable="false" />
+                <Property Name="Place" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="Fine_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="Payment_Status_ID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetViolationsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Violation_ID" Type="int" Nullable="false" />
+                <Property Name="Violation_Name" Type="varchar" MaxLength="100" Nullable="false" />
+                <Property Name="Driver_ID" Type="int" Nullable="false" />
+                <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+                <Property Name="Vehicle_ID" Type="int" Nullable="false" />
+                <Property Name="Vehicle_Info" Type="varchar" MaxLength="18" Nullable="false" />
+                <Property Name="Date_Time" Type="datetime" Nullable="false" />
+                <Property Name="Place" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="Fine_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="Payment_Status_ID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetViolationsByVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="vehicle_id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Violation_ID" Type="int" Nullable="false" />
+                <Property Name="Violation_Name" Type="varchar" MaxLength="100" Nullable="false" />
+                <Property Name="Driver_ID" Type="int" Nullable="false" />
+                <Property Name="DriverFullName" Type="varchar" MaxLength="56" />
+                <Property Name="Vehicle_ID" Type="int" Nullable="false" />
+                <Property Name="Vehicle_Info" Type="varchar" MaxLength="18" Nullable="false" />
+                <Property Name="Date_Time" Type="datetime" Nullable="false" />
+                <Property Name="Place" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="Fine_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="Payment_Status_ID" Type="int" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="LicensesByDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RecieveFineForViolation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="first_name" Type="varchar" Mode="In" />
+          <Parameter Name="last_name" Type="varchar" Mode="In" />
+          <Parameter Name="middle_name" Type="varchar" Mode="In" />
+          <Parameter Name="birthdate" Type="date" Mode="In" />
+          <Parameter Name="phone" Type="nchar" Mode="In" />
+          <Parameter Name="address" Type="varchar(max)" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="UpdateDriverLicense" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="license_Number" Type="nchar" Mode="In" />
+          <Parameter Name="category_id" Type="nchar" Mode="In" />
+          <Parameter Name="issue_date" Type="date" Mode="In" />
+          <Parameter Name="expiry_date" Type="date" Mode="In" />
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="UpdateVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="vehicle_id" Type="int" Mode="In" />
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="series" Type="varchar" Mode="In" />
+          <Parameter Name="registraition_number" Type="int" Mode="In" />
+          <Parameter Name="region_code" Type="int" Mode="In" />
+          <Parameter Name="brand" Type="varchar" Mode="In" />
+          <Parameter Name="model" Type="varchar" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="UpdateViolation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_id" Type="int" Mode="In" />
+          <Parameter Name="driver_id" Type="int" Mode="In" />
+          <Parameter Name="vehicle_id" Type="int" Mode="In" />
+          <Parameter Name="violation_type_id" Type="int" Mode="In" />
+          <Parameter Name="date_time" Type="datetime" Mode="In" />
+          <Parameter Name="place" Type="varchar(max)" Mode="In" />
+          <Parameter Name="fine_amount" Type="decimal" Mode="In" />
+          <Parameter Name="payment_status_id" Type="int" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="UpdateViolationType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="violation_type_id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="error_message" Type="nvarchar(max)" Mode="InOut" />
+        </Function>
+        <Function Name="VehiclesByDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ViolationsByDriver" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ViolationsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ViolationsByVehicle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="type" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище TrafficViolationsModelContainer">
+          <EntitySet Name="Driver_License_Category" EntityType="Self.Driver_License_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver_Licenses" EntityType="Self.Driver_Licenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drivers" EntityType="Self.Drivers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment_Status" EntityType="Self.Payment_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Violation_Types" EntityType="Self.Violation_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Violations" EntityType="Self.Violations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailedViolationsInfo" EntityType="Self.DetailedViolationsInfo" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DetailedViolationsInfo].[Violation_ID] AS [Violation_ID], 
+    [DetailedViolationsInfo].[Date_time] AS [Date_time], 
+    [DetailedViolationsInfo].[Place] AS [Place], 
+    [DetailedViolationsInfo].[Fine_Amount] AS [Fine_Amount], 
+    [DetailedViolationsInfo].[Payment_Status] AS [Payment_Status], 
+    [DetailedViolationsInfo].[DriverFullName] AS [DriverFullName], 
+    [DetailedViolationsInfo].[License] AS [License], 
+    [DetailedViolationsInfo].[VehicleInfo] AS [VehicleInfo], 
+    [DetailedViolationsInfo].[ViolationTypeName] AS [ViolationTypeName], 
+    [DetailedViolationsInfo].[ViolationTypeDescription] AS [ViolationTypeDescription]
+    FROM [dbo].[DetailedViolationsInfo] AS [DetailedViolationsInfo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViolationStatistics" EntityType="Self.ViolationStatistics" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViolationStatistics].[Violation_Name] AS [Violation_Name], 
+    [ViolationStatistics].[Total_Violations] AS [Total_Violations]
+    FROM [dbo].[ViolationStatistics] AS [ViolationStatistics]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Driver_Li__Owner__45F365D3" Association="Self.FK__Driver_Li__Owner__45F365D3">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Driver_Licenses" EntitySet="Driver_Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Owner___3B75D760" Association="Self.FK__Vehicles__Owner___3B75D760">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Region__3C69FB99" Association="Self.FK__Vehicles__Region__3C69FB99">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Violation__Drive__412EB0B6" Association="Self.FK__Violation__Drive__412EB0B6">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Violation__Viola__4316F928" Association="Self.FK__Violation__Viola__4316F928">
+            <End Role="Violation_Types" EntitySet="Violation_Types" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_Licenses_Driver_License_Category" Association="Self.FK_Driver_Licenses_Driver_License_Category">
+            <End Role="Driver_License_Category" EntitySet="Driver_License_Category" />
+            <End Role="Driver_Licenses" EntitySet="Driver_Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_Vehicle" Association="Self.FK_Driver_Vehicle">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverLicense_Driver" Association="Self.FK_DriverLicense_Driver">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Driver_Licenses" EntitySet="Driver_Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Violations_Driver" Association="Self.FK_Violations_Driver">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Violations_Payment_Status" Association="Self.FK_Violations_Payment_Status">
+            <End Role="Payment_Status" EntitySet="Payment_Status" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Violations_Vehicles" Association="Self.FK_Violations_Vehicles">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrafficViolationsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="GetLicensesByDriver_Result">
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="DriverFullName" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
+          <Property Name="License_Number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Issue_Date" Type="DateTime" Nullable="false" />
+          <Property Name="Expiry_Date" Type="DateTime" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetVehiclesByDriver_Result">
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="DriverFullName" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" />
+          <Property Name="Vehicle_Info" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="GetViolationsByDriver_Result">
+          <Property Name="Violation_ID" Type="Int32" Nullable="false" />
+          <Property Name="Violation_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="DriverFullName" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" />
+          <Property Name="Vehicle_Info" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fine_Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status_ID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetViolationsByType_Result">
+          <Property Name="Violation_ID" Type="Int32" Nullable="false" />
+          <Property Name="Violation_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="DriverFullName" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" />
+          <Property Name="Vehicle_Info" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fine_Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status_ID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetViolationsByVehicle_Result">
+          <Property Name="Violation_ID" Type="Int32" Nullable="false" />
+          <Property Name="Violation_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="DriverFullName" Type="String" MaxLength="56" FixedLength="false" Unicode="false" />
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" />
+          <Property Name="Vehicle_Info" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date_Time" Type="DateTime" Nullable="false" />
+          <Property Name="Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fine_Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status_ID" Type="Int32" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Driver_License_Category">
+          <Key>
+            <PropertyRef Name="Driver_License_Caetgory_ID" />
+          </Key>
+          <Property Name="Driver_License_Caetgory_ID" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Driver_Licenses" Relationship="Self.FK_Driver_Licenses_Driver_License_Category" FromRole="Driver_License_Category" ToRole="Driver_Licenses" />
+        </EntityType>
+        <EntityType Name="Driver_Licenses">
+          <Key>
+            <PropertyRef Name="License_Number" />
+          </Key>
+          <Property Name="License_Number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="Category_ID" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Issue_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Expiry_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Driver_License_Category" Relationship="Self.FK_Driver_Licenses_Driver_License_Category" FromRole="Driver_Licenses" ToRole="Driver_License_Category" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK__Driver_Li__Owner__45F365D3" FromRole="Driver_Licenses" ToRole="Drivers" />
+          <NavigationProperty Name="Driver1" Relationship="Self.FK_DriverLicense_Driver" FromRole="Driver_Licenses" ToRole="Drivers" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Driver_ID" />
+          </Key>
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Middle_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Birthdate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Phone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Driver_Licenses" Relationship="Self.FK__Driver_Li__Owner__45F365D3" FromRole="Drivers" ToRole="Driver_Licenses" />
+          <NavigationProperty Name="Driver_Licenses1" Relationship="Self.FK_DriverLicense_Driver" FromRole="Drivers" ToRole="Driver_Licenses" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK__Vehicles__Owner___3B75D760" FromRole="Drivers" ToRole="Vehicles" />
+          <NavigationProperty Name="Violations" Relationship="Self.FK__Violation__Drive__412EB0B6" FromRole="Drivers" ToRole="Violations" />
+          <NavigationProperty Name="Vehicles1" Relationship="Self.FK_Driver_Vehicle" FromRole="Drivers" ToRole="Vehicles" />
+          <NavigationProperty Name="Violations1" Relationship="Self.FK_Violations_Driver" FromRole="Drivers" ToRole="Violations" />
+        </EntityType>
+        <EntityType Name="Payment_Status">
+          <Key>
+            <PropertyRef Name="Payment_Status_ID" />
+          </Key>
+          <Property Name="Payment_Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Violations" Relationship="Self.FK_Violations_Payment_Status" FromRole="Payment_Status" ToRole="Violations" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="Region_Code" />
+          </Key>
+          <Property Name="Region_Code" Type="Int32" Nullable="false" />
+          <Property Name="Region_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Region_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK__Vehicles__Region__3C69FB99" FromRole="Regions" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="Series" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Registration_Number" Type="Int32" Nullable="false" />
+          <Property Name="Region_Code" Type="Int32" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK__Vehicles__Owner___3B75D760" FromRole="Vehicles" ToRole="Drivers" />
+          <NavigationProperty Name="Driver1" Relationship="Self.FK_Driver_Vehicle" FromRole="Vehicles" ToRole="Drivers" />
+          <NavigationProperty Name="Region" Relationship="Self.FK__Vehicles__Region__3C69FB99" FromRole="Vehicles" ToRole="Regions" />
+          <NavigationProperty Name="Violations" Relationship="Self.FK_Violations_Vehicles" FromRole="Vehicles" ToRole="Violations" />
+        </EntityType>
+        <EntityType Name="Violation_Types">
+          <Key>
+            <PropertyRef Name="Violation_Type_ID" />
+          </Key>
+          <Property Name="Violation_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Violation_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Violation_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Violations" Relationship="Self.FK__Violation__Viola__4316F928" FromRole="Violation_Types" ToRole="Violations" />
+        </EntityType>
+        <EntityType Name="Violation">
+          <Key>
+            <PropertyRef Name="Violation_ID" />
+          </Key>
+          <Property Name="Violation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Driver_ID" Type="Int32" Nullable="false" />
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" />
+          <Property Name="Violation_Type_ID" Type="Int32" Nullable="false" />
+          <Property Name="Date_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fine_Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK__Violation__Drive__412EB0B6" FromRole="Violations" ToRole="Drivers" />
+          <NavigationProperty Name="Driver1" Relationship="Self.FK_Violations_Driver" FromRole="Violations" ToRole="Drivers" />
+          <NavigationProperty Name="Payment_Status" Relationship="Self.FK_Violations_Payment_Status" FromRole="Violations" ToRole="Payment_Status" />
+          <NavigationProperty Name="Vehicle" Relationship="Self.FK_Violations_Vehicles" FromRole="Violations" ToRole="Vehicles" />
+          <NavigationProperty Name="Violation_Types" Relationship="Self.FK__Violation__Viola__4316F928" FromRole="Violations" ToRole="Violation_Types" />
+        </EntityType>
+        <EntityType Name="DetailedViolationsInfo">
+          <Key>
+            <PropertyRef Name="Violation_ID" />
+            <PropertyRef Name="Date_time" />
+            <PropertyRef Name="Place" />
+            <PropertyRef Name="Fine_Amount" />
+            <PropertyRef Name="Payment_Status" />
+            <PropertyRef Name="DriverFullName" />
+            <PropertyRef Name="VehicleInfo" />
+            <PropertyRef Name="ViolationTypeName" />
+          </Key>
+          <Property Name="Violation_ID" Type="Int32" Nullable="false" />
+          <Property Name="Date_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Place" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fine_Amount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Payment_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DriverFullName" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="License" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="VehicleInfo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ViolationTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ViolationTypeDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ViolationStatistic">
+          <Key>
+            <PropertyRef Name="Violation_Name" />
+          </Key>
+          <Property Name="Violation_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Total_Violations" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Driver_Licenses_Driver_License_Category">
+          <End Role="Driver_License_Category" Type="Self.Driver_License_Category" Multiplicity="1" />
+          <End Role="Driver_Licenses" Type="Self.Driver_Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver_License_Category">
+              <PropertyRef Name="Driver_License_Caetgory_ID" />
+            </Principal>
+            <Dependent Role="Driver_Licenses">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Driver_Li__Owner__45F365D3">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+          <End Role="Driver_Licenses" Type="Self.Driver_Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Driver_Licenses">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DriverLicense_Driver">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Driver_Licenses" Type="Self.Driver_Licenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Driver_Licenses">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Owner___3B75D760">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Violation__Drive__412EB0B6">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Driver_Vehicle">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Violations_Driver">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Violations" Type="Self.Violation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Driver_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Driver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Violations_Payment_Status">
+          <End Role="Payment_Status" Type="Self.Payment_Status" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Status">
+              <PropertyRef Name="Payment_Status_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Payment_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehicles__Region__3C69FB99">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="Region_Code" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Region_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Violations_Vehicles">
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="Vehicle_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Vehicle_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Violation__Viola__4316F928">
+          <End Role="Violation_Types" Type="Self.Violation_Types" Multiplicity="1" />
+          <End Role="Violations" Type="Self.Violation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Violation_Types">
+              <PropertyRef Name="Violation_Type_ID" />
+            </Principal>
+            <Dependent Role="Violations">
+              <PropertyRef Name="Violation_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrafficViolationsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Driver_License_Category" EntityType="Self.Driver_License_Category" />
+          <EntitySet Name="Driver_Licenses" EntityType="Self.Driver_Licenses" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Payment_Status" EntityType="Self.Payment_Status" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <EntitySet Name="Violation_Types" EntityType="Self.Violation_Types" />
+          <EntitySet Name="Violations" EntityType="Self.Violation" />
+          <EntitySet Name="DetailedViolationsInfoes" EntityType="Self.DetailedViolationsInfo" />
+          <EntitySet Name="ViolationStatistics" EntityType="Self.ViolationStatistic" />
+          <AssociationSet Name="FK_Driver_Licenses_Driver_License_Category" Association="Self.FK_Driver_Licenses_Driver_License_Category">
+            <End Role="Driver_License_Category" EntitySet="Driver_License_Category" />
+            <End Role="Driver_Licenses" EntitySet="Driver_Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Driver_Li__Owner__45F365D3" Association="Self.FK__Driver_Li__Owner__45F365D3">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Driver_Licenses" EntitySet="Driver_Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DriverLicense_Driver" Association="Self.FK_DriverLicense_Driver">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Driver_Licenses" EntitySet="Driver_Licenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Owner___3B75D760" Association="Self.FK__Vehicles__Owner___3B75D760">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Violation__Drive__412EB0B6" Association="Self.FK__Violation__Drive__412EB0B6">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Driver_Vehicle" Association="Self.FK_Driver_Vehicle">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Violations_Driver" Association="Self.FK_Violations_Driver">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Violations_Payment_Status" Association="Self.FK_Violations_Payment_Status">
+            <End Role="Payment_Status" EntitySet="Payment_Status" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vehicles__Region__3C69FB99" Association="Self.FK__Vehicles__Region__3C69FB99">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Violations_Vehicles" Association="Self.FK_Violations_Vehicles">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Violation__Viola__4316F928" Association="Self.FK__Violation__Viola__4316F928">
+            <End Role="Violation_Types" EntitySet="Violation_Types" />
+            <End Role="Violations" EntitySet="Violations" />
+          </AssociationSet>
+          <FunctionImport Name="GetLicensesByDriver" IsComposable="true" ReturnType="Collection(TrafficViolationsModel.GetLicensesByDriver_Result)">
+          <Parameter Name="deiver_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetVehiclesByDriver" IsComposable="true" ReturnType="Collection(TrafficViolationsModel.GetVehiclesByDriver_Result)">
+          <Parameter Name="deiver_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetViolationsByDriver" IsComposable="true" ReturnType="Collection(TrafficViolationsModel.GetViolationsByDriver_Result)">
+          <Parameter Name="deiver_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetViolationsByType" IsComposable="true" ReturnType="Collection(TrafficViolationsModel.GetViolationsByType_Result)">
+          <Parameter Name="violation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetViolationsByVehicle" IsComposable="true" ReturnType="Collection(TrafficViolationsModel.GetViolationsByVehicle_Result)">
+          <Parameter Name="vehicle_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddDriver">
+            <Parameter Name="first_name" Mode="In" Type="String" />
+            <Parameter Name="last_name" Mode="In" Type="String" />
+            <Parameter Name="middle_name" Mode="In" Type="String" />
+            <Parameter Name="birthdate" Mode="In" Type="DateTime" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddDriverLicense">
+            <Parameter Name="licenseNumber" Mode="In" Type="String" />
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="category_id" Mode="In" Type="String" />
+            <Parameter Name="issue_date" Mode="In" Type="DateTime" />
+            <Parameter Name="expiry_date" Mode="In" Type="DateTime" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddVehicle">
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="series" Mode="In" Type="String" />
+            <Parameter Name="registraition_number" Mode="In" Type="Int32" />
+            <Parameter Name="region_code" Mode="In" Type="Int32" />
+            <Parameter Name="brand" Mode="In" Type="String" />
+            <Parameter Name="model" Mode="In" Type="String" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddViolation">
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="vehicle_id" Mode="In" Type="Int32" />
+            <Parameter Name="violation_type_id" Mode="In" Type="Int32" />
+            <Parameter Name="date_time" Mode="In" Type="DateTime" />
+            <Parameter Name="place" Mode="In" Type="String" />
+            <Parameter Name="fine_amount" Mode="In" Type="Decimal" />
+            <Parameter Name="payment_status_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddViolationType">
+            <Parameter Name="violation_type_id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteDriver">
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteDriverLicense">
+            <Parameter Name="license_Number" Mode="In" Type="String" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteVehicle">
+            <Parameter Name="vehicle_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteViolation">
+            <Parameter Name="violation_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteViolationType">
+            <Parameter Name="violation_type_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="LicensesByDriver" ReturnType="Collection(TrafficViolationsModel.LicensesByDriver_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RecieveFineForViolation">
+          <Parameter Name="violation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateDriver">
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="first_name" Mode="In" Type="String" />
+            <Parameter Name="last_name" Mode="In" Type="String" />
+            <Parameter Name="middle_name" Mode="In" Type="String" />
+            <Parameter Name="birthdate" Mode="In" Type="DateTime" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateDriverLicense">
+            <Parameter Name="license_Number" Mode="In" Type="String" />
+            <Parameter Name="category_id" Mode="In" Type="String" />
+            <Parameter Name="issue_date" Mode="In" Type="DateTime" />
+            <Parameter Name="expiry_date" Mode="In" Type="DateTime" />
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateVehicle">
+            <Parameter Name="vehicle_id" Mode="In" Type="Int32" />
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="series" Mode="In" Type="String" />
+            <Parameter Name="registraition_number" Mode="In" Type="Int32" />
+            <Parameter Name="region_code" Mode="In" Type="Int32" />
+            <Parameter Name="brand" Mode="In" Type="String" />
+            <Parameter Name="model" Mode="In" Type="String" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateViolation">
+            <Parameter Name="violation_id" Mode="In" Type="Int32" />
+            <Parameter Name="driver_id" Mode="In" Type="Int32" />
+            <Parameter Name="vehicle_id" Mode="In" Type="Int32" />
+            <Parameter Name="violation_type_id" Mode="In" Type="Int32" />
+            <Parameter Name="date_time" Mode="In" Type="DateTime" />
+            <Parameter Name="place" Mode="In" Type="String" />
+            <Parameter Name="fine_amount" Mode="In" Type="Decimal" />
+            <Parameter Name="payment_status_id" Mode="In" Type="Int32" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateViolationType">
+            <Parameter Name="violation_type_id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="error_message" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="VehiclesByDriver" ReturnType="Collection(TrafficViolationsModel.VehiclesByDriver_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ViolationsByDriver" ReturnType="Collection(TrafficViolationsModel.ViolationsByDriver_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ViolationsByType" ReturnType="Collection(TrafficViolationsModel.ViolationsByType_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ViolationsByVehicle" ReturnType="Collection(TrafficViolationsModel.ViolationsByVehicle_Result)">
+          <Parameter Name="type" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="LicensesByDriver_Result">
+          <Property Type="Int32" Name="Driver_ID" Nullable="false" />
+          <Property Type="String" Name="DriverFullName" Nullable="true" MaxLength="56" />
+          <Property Type="String" Name="License_Number" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="Issue_Date" Nullable="false" />
+          <Property Type="DateTime" Name="Expiry_Date" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="VehiclesByDriver_Result">
+          <Property Type="Int32" Name="Driver_ID" Nullable="false" />
+          <Property Type="String" Name="DriverFullName" Nullable="true" MaxLength="56" />
+          <Property Type="Int32" Name="Vehicle_ID" Nullable="false" />
+          <Property Type="String" Name="Vehicle_Info" Nullable="false" MaxLength="18" />
+          <Property Type="String" Name="Brand" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Model" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Year" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ViolationsByDriver_Result">
+          <Property Type="Int32" Name="Violation_ID" Nullable="false" />
+          <Property Type="String" Name="Violation_Name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Driver_ID" Nullable="false" />
+          <Property Type="String" Name="DriverFullName" Nullable="true" MaxLength="56" />
+          <Property Type="Int32" Name="Vehicle_ID" Nullable="false" />
+          <Property Type="String" Name="Vehicle_Info" Nullable="false" MaxLength="18" />
+          <Property Type="DateTime" Name="Date_Time" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Place" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="Fine_Amount" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Payment_Status_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ViolationsByType_Result">
+          <Property Type="Int32" Name="Violation_ID" Nullable="false" />
+          <Property Type="String" Name="Violation_Name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Driver_ID" Nullable="false" />
+          <Property Type="String" Name="DriverFullName" Nullable="true" MaxLength="56" />
+          <Property Type="Int32" Name="Vehicle_ID" Nullable="false" />
+          <Property Type="String" Name="Vehicle_Info" Nullable="false" MaxLength="18" />
+          <Property Type="DateTime" Name="Date_Time" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Place" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="Fine_Amount" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Payment_Status_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ViolationsByVehicle_Result">
+          <Property Type="Int32" Name="Violation_ID" Nullable="false" />
+          <Property Type="String" Name="Violation_Name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Driver_ID" Nullable="false" />
+          <Property Type="String" Name="DriverFullName" Nullable="true" MaxLength="56" />
+          <Property Type="Int32" Name="Vehicle_ID" Nullable="false" />
+          <Property Type="String" Name="Vehicle_Info" Nullable="false" MaxLength="18" />
+          <Property Type="DateTime" Name="Date_Time" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Place" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="Fine_Amount" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="Payment_Status_ID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище TrafficViolationsModelContainer" CdmEntityContainer="TrafficViolationsEntities">
+          <EntitySetMapping Name="Driver_License_Category">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Driver_License_Category">
+              <MappingFragment StoreEntitySet="Driver_License_Category">
+                <ScalarProperty Name="Driver_License_Caetgory_ID" ColumnName="Driver_License_Caetgory_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Driver_Licenses">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Driver_Licenses">
+              <MappingFragment StoreEntitySet="Driver_Licenses">
+                <ScalarProperty Name="License_Number" ColumnName="License_Number" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="Issue_Date" ColumnName="Issue_Date" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Driver">
+              <MappingFragment StoreEntitySet="Drivers">
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Middle_Name" ColumnName="Middle_Name" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment_Status">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Payment_Status">
+              <MappingFragment StoreEntitySet="Payment_Status">
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="Region_Code" ColumnName="Region_Code" />
+                <ScalarProperty Name="Region_Name" ColumnName="Region_Name" />
+                <ScalarProperty Name="Region_Description" ColumnName="Region_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="Series" ColumnName="Series" />
+                <ScalarProperty Name="Registration_Number" ColumnName="Registration_Number" />
+                <ScalarProperty Name="Region_Code" ColumnName="Region_Code" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Violation_Types">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Violation_Types">
+              <MappingFragment StoreEntitySet="Violation_Types">
+                <ScalarProperty Name="Violation_Type_ID" ColumnName="Violation_Type_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Violation_Description" ColumnName="Violation_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Violations">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.Violation">
+              <MappingFragment StoreEntitySet="Violations">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Violation_Type_ID" ColumnName="Violation_Type_ID" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailedViolationsInfoes">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.DetailedViolationsInfo">
+              <MappingFragment StoreEntitySet="DetailedViolationsInfo">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Date_time" ColumnName="Date_time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status" ColumnName="Payment_Status" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="License" ColumnName="License" />
+                <ScalarProperty Name="VehicleInfo" ColumnName="VehicleInfo" />
+                <ScalarProperty Name="ViolationTypeName" ColumnName="ViolationTypeName" />
+                <ScalarProperty Name="ViolationTypeDescription" ColumnName="ViolationTypeDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViolationStatistics">
+            <EntityTypeMapping TypeName="TrafficViolationsModel.ViolationStatistic">
+              <MappingFragment StoreEntitySet="ViolationStatistics">
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Total_Violations" ColumnName="Total_Violations" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="Хранилище TrafficViolationsModel.GetLicensesByDriver" FunctionImportName="GetLicensesByDriver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.GetLicensesByDriver_Result">
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="License_Number" ColumnName="License_Number" />
+                <ScalarProperty Name="Issue_Date" ColumnName="Issue_Date" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище TrafficViolationsModel.GetVehiclesByDriver" FunctionImportName="GetVehiclesByDriver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.GetVehiclesByDriver_Result">
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище TrafficViolationsModel.GetViolationsByDriver" FunctionImportName="GetViolationsByDriver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.GetViolationsByDriver_Result">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище TrafficViolationsModel.GetViolationsByType" FunctionImportName="GetViolationsByType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.GetViolationsByType_Result">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище TrafficViolationsModel.GetViolationsByVehicle" FunctionImportName="GetViolationsByVehicle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.GetViolationsByVehicle_Result">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AddDriver" FunctionName="Хранилище TrafficViolationsModel.AddDriver" />
+          <FunctionImportMapping FunctionImportName="AddDriverLicense" FunctionName="Хранилище TrafficViolationsModel.AddDriverLicense" />
+          <FunctionImportMapping FunctionImportName="AddVehicle" FunctionName="Хранилище TrafficViolationsModel.AddVehicle" />
+          <FunctionImportMapping FunctionImportName="AddViolation" FunctionName="Хранилище TrafficViolationsModel.AddViolation" />
+          <FunctionImportMapping FunctionImportName="AddViolationType" FunctionName="Хранилище TrafficViolationsModel.AddViolationType" />
+          <FunctionImportMapping FunctionImportName="DeleteDriver" FunctionName="Хранилище TrafficViolationsModel.DeleteDriver" />
+          <FunctionImportMapping FunctionImportName="DeleteDriverLicense" FunctionName="Хранилище TrafficViolationsModel.DeleteDriverLicense" />
+          <FunctionImportMapping FunctionImportName="DeleteVehicle" FunctionName="Хранилище TrafficViolationsModel.DeleteVehicle" />
+          <FunctionImportMapping FunctionImportName="DeleteViolation" FunctionName="Хранилище TrafficViolationsModel.DeleteViolation" />
+          <FunctionImportMapping FunctionImportName="DeleteViolationType" FunctionName="Хранилище TrafficViolationsModel.DeleteViolationType" />
+          <FunctionImportMapping FunctionImportName="LicensesByDriver" FunctionName="Хранилище TrafficViolationsModel.LicensesByDriver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.LicensesByDriver_Result">
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="License_Number" ColumnName="License_Number" />
+                <ScalarProperty Name="Issue_Date" ColumnName="Issue_Date" />
+                <ScalarProperty Name="Expiry_Date" ColumnName="Expiry_Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RecieveFineForViolation" FunctionName="Хранилище TrafficViolationsModel.RecieveFineForViolation" />
+          <FunctionImportMapping FunctionImportName="UpdateDriver" FunctionName="Хранилище TrafficViolationsModel.UpdateDriver" />
+          <FunctionImportMapping FunctionImportName="UpdateDriverLicense" FunctionName="Хранилище TrafficViolationsModel.UpdateDriverLicense" />
+          <FunctionImportMapping FunctionImportName="UpdateVehicle" FunctionName="Хранилище TrafficViolationsModel.UpdateVehicle" />
+          <FunctionImportMapping FunctionImportName="UpdateViolation" FunctionName="Хранилище TrafficViolationsModel.UpdateViolation" />
+          <FunctionImportMapping FunctionImportName="UpdateViolationType" FunctionName="Хранилище TrafficViolationsModel.UpdateViolationType" />
+          <FunctionImportMapping FunctionImportName="VehiclesByDriver" FunctionName="Хранилище TrafficViolationsModel.VehiclesByDriver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.VehiclesByDriver_Result">
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ViolationsByDriver" FunctionName="Хранилище TrafficViolationsModel.ViolationsByDriver">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.ViolationsByDriver_Result">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ViolationsByType" FunctionName="Хранилище TrafficViolationsModel.ViolationsByType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.ViolationsByType_Result">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ViolationsByVehicle" FunctionName="Хранилище TrafficViolationsModel.ViolationsByVehicle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TrafficViolationsModel.ViolationsByVehicle_Result">
+                <ScalarProperty Name="Violation_ID" ColumnName="Violation_ID" />
+                <ScalarProperty Name="Violation_Name" ColumnName="Violation_Name" />
+                <ScalarProperty Name="Driver_ID" ColumnName="Driver_ID" />
+                <ScalarProperty Name="DriverFullName" ColumnName="DriverFullName" />
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Vehicle_Info" ColumnName="Vehicle_Info" />
+                <ScalarProperty Name="Date_Time" ColumnName="Date_Time" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="Fine_Amount" ColumnName="Fine_Amount" />
+                <ScalarProperty Name="Payment_Status_ID" ColumnName="Payment_Status_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

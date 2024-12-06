@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0194b61750b64dbf9eaed0e6ae3831df" Name="Diagram1">
+        <EntityTypeShape EntityType="TrafficViolationsModel.Driver_License_Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Driver_Licenses" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Driver" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Payment_Status" Width="1.5" PointX="6" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Region" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Vehicle" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Violation_Types" Width="1.5" PointX="6" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.Violation" Width="1.5" PointX="8.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.DetailedViolationsInfo" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrafficViolationsModel.ViolationStatistic" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="TrafficViolationsModel.FK_Driver_Licenses_Driver_License_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK__Driver_Li__Owner__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK_DriverLicense_Driver" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK__Vehicles__Owner___3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK__Violation__Drive__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK_Driver_Vehicle" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK_Violations_Driver" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK_Violations_Payment_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK__Vehicles__Region__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK_Violations_Vehicles" ManuallyRouted="false" />
+        <AssociationConnector Association="TrafficViolationsModel.FK__Violation__Viola__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

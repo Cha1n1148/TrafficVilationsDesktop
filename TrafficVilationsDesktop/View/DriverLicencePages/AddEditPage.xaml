@@ -1,0 +1,123 @@
+﻿<Page x:Class="TrafficVilationsDesktop.View.DriverLicencePages.AddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TrafficVilationsDesktop.View.DriverLicencePages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Margin="100, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="10"
+                       Text="Номер водительского удостоверения"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+
+            <TextBox Grid.Row="0"
+                     Grid.Column="1"
+                     Margin="10"
+                     VerticalContentAlignment="Center"
+                     Text="{Binding License_Number}"/>
+
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Margin="10"
+                       Text="Владелец"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox Grid.Row="1"
+                      Grid.Column="1"
+                      x:Name="Drivers"
+                      DisplayMemberPath="FullName"
+                      Margin="10"
+                      VerticalContentAlignment="Center"
+                      SelectedItem="{Binding Driver}"/>
+                      
+            <TextBlock Grid.Row="2"
+                       Grid.Column="0"
+                       Margin="10"
+                       Text="Категория"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+
+            <ComboBox Grid.Row="2"
+                      Grid.Column="1"
+                      x:Name="Categories"
+                      DisplayMemberPath="Driver_License_Caetgory_ID"
+                      Margin="10"
+                      VerticalContentAlignment="Center"
+                      SelectedItem="{Binding Driver_License_Category}"/>
+
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Margin="10"
+                       Text="Дата выдачи"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+
+            <DatePicker Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="10"
+                        VerticalContentAlignment="Center"
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Issue_Date}"/>
+
+            <TextBlock Grid.Row="4"
+                       Grid.Column="0"
+                       Margin="10"
+                       Text="Дата истечения"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+
+            <DatePicker Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="10"
+                        VerticalContentAlignment="Center"
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding Expiry_Date}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="OK_Button" 
+                    Click="OK_Button_Click"
+                    Content="Ок"
+                    Margin="50, 5"
+                    Grid.Column="0"/>
+
+            <Button x:Name="Cancel_Button"
+                    Click="Cancel_Button_Click"
+                    Content="Отмена"
+                    Margin="50, 5"
+                    Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</Page>

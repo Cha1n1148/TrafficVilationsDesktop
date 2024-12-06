@@ -1,0 +1,245 @@
+﻿<Page x:Class="TrafficVilationsDesktop.View.DriverPages.DetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TrafficVilationsDesktop.View.DriverPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DetailsPage">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".6*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="1.2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"
+              Grid.RowSpan="3">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".7*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Код"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding Driver_ID}"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Фамилия"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding Last_Name}"/>
+
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Имя"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding First_Name}"/>
+
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Отчество"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding Middle_Name}"/>
+
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Дата рождения"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="4"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding Birthdate}"/>
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Телефон"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding Phone}"/>
+
+                <TextBlock Grid.Row="6"
+                           Grid.Column="0"
+                           Margin="10"
+                           Text="Адрес"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock Grid.Row="6"
+                           Grid.Column="1"
+                           Margin="10"
+                           VerticalAlignment="Center"
+                           Text="{Binding Address}"/>
+
+                <Button Grid.Row="7"
+                        Grid.ColumnSpan="2"
+                        Margin="20,10"
+                        Content="Назад"
+                        x:Name="BackButton"
+                        Click="BackButton_Click"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Водительские права"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <DataGrid AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      x:Name="DataGrid_Licenses"
+                      Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="Номер водительских прав" 
+                                        Binding="{Binding License_Number}"/>
+                    <DataGridTextColumn Width="*" Header="Категория" 
+                                        Binding="{Binding Category_ID}"/>
+                    <DataGridTextColumn Width="*" Header="Дата получения" 
+                                        Binding="{Binding Issue_Date}"/>
+                    <DataGridTextColumn Width="*" Header="Дата истечения" 
+                                        Binding="{Binding Expiry_Date}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+
+
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Транспортные средства"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <DataGrid AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  x:Name="DataGrid_Vehicles"
+                  Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="auto" Header="Код автомобиля" 
+                                        Binding="{Binding Vehicle_ID}"/>
+                    <DataGridTextColumn Width="auto" Header="Серия"  
+                                        Binding="{Binding Series}"/>
+                    <DataGridTextColumn Width="auto" Header="Номер"  
+                                        Binding="{Binding Registration_Number}"/>
+                    <DataGridTextColumn Width="auto" Header="Регион"  
+                                        Binding="{Binding Region.Region_Code}"/>
+                    <DataGridTextColumn Width="*" Header="Марка"  
+                                        Binding="{Binding Brand}"/>
+                    <DataGridTextColumn Width="*" Header="Модель" 
+                                        Binding="{Binding Model}"/>
+                    <DataGridTextColumn Width="*" Header="Год выпуска" 
+                                        Binding="{Binding Year}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Нарушения"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+
+            <DataGrid AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      x:Name="DataGrid_Violations"
+                      Grid.Row="2"
+                      Grid.Column="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="auto" Header="Код автомобиля" 
+                                        Binding="{Binding Violation_ID}"/>
+                    <DataGridTextColumn Width="auto" Header="Серия"  
+                                        Binding="{Binding Vehicle.FullNumber}"/>
+                    <DataGridTextColumn Width="auto" Header="Регион"  
+                                        Binding="{Binding Violation_Types.Violation_Name}"/>
+                    <DataGridTextColumn Width="*" Header="Марка"  
+                                        Binding="{Binding Date_Time}"/>
+                    <DataGridTextColumn Width="*" Header="Модель"   
+                                        Binding="{Binding Place}"/>
+                    <DataGridTextColumn Width="*" Header="Год выпуска" 
+                                        Binding="{Binding Fine_Amount}"/>
+                    <DataGridTextColumn Width="*" Header="Год выпуска" 
+                                        Binding="{Binding Payment_Status.Name}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>
